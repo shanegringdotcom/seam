@@ -34,8 +34,30 @@ export const sanity = createClient({
     process.env.SANITY_DATASET ?? import.meta.env.PUBLIC_SANITY_DATASET ?? 'production',
   apiVersion: '2025-01-01',
   token,
-  useCdn: false,
+  // Published-content reads only (no drafts, no preview, no mutations), so serve
+  // them from the API CDN (apicdn.sanity.io). The CDN caches authenticated
+  // requests per token and Sanity purges it on publish, so edits still appear
+  // within seconds. useCdn: false sent every SSR render to the uncached API.
+  useCdn: true,
+  perspective: 'published',
 })
+
+// Per-instance memo. One page render runs the same queries more than once
+// (Navbar pulls APs/projects/orgs on every page, and the directory pages pull
+// them again), and a warm function serves many renders. Sharing the in-flight
+// promise for a short window collapses those into one CDN request.
+const MEMO_TTL_MS = 60_000
+const memo = new Map<string, { at: number; value: Promise<any> }>()
+function cachedFetch<T>(query: string, params: Record<string, unknown> = {}): Promise<T> {
+  const key = query + JSON.stringify(params)
+  const hit = memo.get(key)
+  if (hit && Date.now() - hit.at < MEMO_TTL_MS) return hit.value
+  const value = sanity.fetch<T>(query, params)
+  memo.set(key, { at: Date.now(), value })
+  // Never memoize a failure — the next render should retry.
+  value.catch(() => memo.delete(key))
+  return value
+}
 
 // ── GROQ projections (shapes match SEAM/src/data interfaces) ─────────────────
 const POST = `{
@@ -79,7 +101,7 @@ const TEAM = `{
 // sections instead of taking the whole marketing site down with a 500.
 async function safeFetch<T>(label: string, query: string): Promise<T[]> {
   try {
-    return (await sanity.fetch<T[]>(query)) ?? []
+    return (await cachedFetch<T[]>(query)) ?? []
   } catch (e: any) {
     console.error(`[sanity] ${label} failed: ${e?.message ?? e}`)
     return []
@@ -138,7 +160,7 @@ export type Page = {
 
 export async function getPage(slug: string): Promise<Page | null> {
   try {
-    return await sanity.fetch<Page | null>(
+    return await cachedFetch<Page | null>(
       `*[_type=="page" && slug.current==$slug][0]${PAGE}`,
       { slug },
     )

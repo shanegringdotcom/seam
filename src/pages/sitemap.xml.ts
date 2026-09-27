@@ -68,6 +68,7 @@ export const GET: APIRoute = async () => {
     { path: '/resources/courses/foundations', priority: 0.7, changefreq: 'monthly' },
     { path: '/resources/courses/cre-familiarization', priority: 0.6, changefreq: 'monthly' },
     { path: '/resources/integrations', priority: 0.5, changefreq: 'monthly' },
+    { path: '/resources/social-sustainability-examples', priority: 0.7, changefreq: 'monthly' },
     { path: '/resources/blog', priority: 0.8, changefreq: 'weekly' },
     // Audience pages
     { path: '/for/developers-owners', priority: 0.7, changefreq: 'monthly' },

@@ -1,0 +1,347 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import { faqSchema, breadcrumbSchema } from '../../lib/seo-helpers'
+
+/* ─── Data ─── */
+
+// Example practices, grouped by the four SEAM pillars. Every example is
+// drawn from the objectives described on the /standard pillar pages.
+const pillars = [
+  {
+    title: 'Social Impact',
+    href: '/standard/social-impact',
+    summary:
+      'Examples that show what changes for people because the building exists, measured against a baseline instead of assumed.',
+    examples: [
+      {
+        name: 'Mapping who the project affects before you build',
+        body: 'Identify the people a project will affect, map the value chain behind it, and record a social baseline so later results have something to be measured against.',
+      },
+      {
+        name: 'Engaging the people most affected',
+        body: 'Set up a process to collect, analyze, and respond to feedback from impacted parties throughout development, not just at a single public meeting.',
+      },
+      {
+        name: 'Monitoring outcomes over time',
+        body: 'Track whether the project\'s social impact is moving in the right direction using established indicators and regular assessment cycles.',
+      },
+    ],
+  },
+  {
+    title: 'Social Responsibility',
+    href: '/standard/social-responsibility',
+    summary:
+      'Examples that show how an organization governs itself and invests in the community it operates in.',
+    examples: [
+      {
+        name: 'Site-specific governance policies',
+        body: 'Write policies for the specific site that set clear expectations for how the organization and its project teams operate.',
+      },
+      {
+        name: 'Public reporting on social commitments',
+        body: 'Report honestly and publicly on social responsibility commitments and performance, at both the project and property level.',
+      },
+      {
+        name: 'Community programs built on community-identified goals',
+        body: 'Design and run programs that respond to goals the community itself has named, through direct engagement that goes beyond a donation.',
+      },
+      {
+        name: 'Social investment that builds capacity',
+        body: 'Make financial investments that strengthen long-term community capacity rather than creating ongoing dependency.',
+      },
+    ],
+  },
+  {
+    title: 'Social Justice',
+    href: '/standard/social-justice',
+    summary:
+      'Examples that address who gets access to opportunity, who gets excluded, and what the project does about the difference.',
+    examples: [
+      {
+        name: 'Inclusive procurement and leasing',
+        body: 'Build inclusive practices into how suppliers are hired, contracts are awarded, and leases are structured, to broaden economic opportunity.',
+      },
+      {
+        name: 'Fair treatment and equal pay',
+        body: 'Set standards for fair treatment, equal pay, and inclusive design for everyone who works in or on the project.',
+      },
+      {
+        name: 'Avoiding involuntary displacement',
+        body: 'Understand and actively manage the project\'s relationship with the surrounding community, including avoiding involuntary displacement of residents.',
+      },
+      {
+        name: 'Broader access to capital',
+        body: 'Structure equity capital and debt financing so historically underrepresented groups are included in the financial opportunity.',
+      },
+    ],
+  },
+  {
+    title: 'Social Accountability',
+    href: '/standard/social-accountability',
+    summary:
+      'Examples that cover human rights, health, and safety across everyone the project touches, including people you never meet.',
+    examples: [
+      {
+        name: 'Screening materials for human rights risk',
+        body: 'Assess supply chain risk for the materials that go into the building, and take corrective action when violations are identified.',
+      },
+      {
+        name: 'Living wages across contractors and suppliers',
+        body: 'Require contractors, suppliers, and tenants to provide living wages and decent working conditions to the people who work for them.',
+      },
+      {
+        name: 'A formal grievance mechanism',
+        body: 'Give workers and community members a direct, retaliation-free channel to raise concerns, alongside public reporting on human rights impacts.',
+      },
+      {
+        name: 'Health and safety for everyone on and around the site',
+        body: 'Protect the physical wellbeing of occupants, the surrounding community, and construction workers, along with the structural safety of all spaces.',
+      },
+    ],
+  },
+]
+
+const faqs = [
+  {
+    question: 'What are some examples of social sustainability in buildings?',
+    answer:
+      'Common examples include engaging the people a project affects throughout development, paying living wages across contractors and suppliers, avoiding involuntary displacement, running inclusive procurement, screening materials for forced labor and other human rights risks, and giving workers and neighbors a formal grievance channel. Each one becomes meaningful when it is documented and checked, not just described.',
+  },
+  {
+    question: 'What is the social pillar of sustainability?',
+    answer:
+      'The social pillar is the third of the three pillars of sustainability, alongside environmental and economic, often summarized as people, planet, and profit. It covers the people a building touches: occupants, workers, neighbors, and the supply chain behind the materials. In the built environment it is widely claimed in reporting and rarely verified against a standard.',
+  },
+  {
+    question: 'How do you show a social sustainability practice is real?',
+    answer:
+      'By documenting it against a published standard with defined requirements, a scoring rubric, and evidence rules, then having a third party review it. With SEAM, organizations can verify a single practice through SEAM Marks, a themed body of work through a SEAM Seal, or a whole building through SEAM certification at Bronze, Silver, Gold, or Platinum.',
+  },
+]
+
+const jsonLd = [
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Resources', path: '/resources/blog' },
+    { name: 'Social Sustainability Examples', path: '/resources/social-sustainability-examples' },
+  ]),
+] as unknown as Record<string, unknown>
+---
+
+<SiteLayout
+  title="Social Sustainability Examples in the Built Environment"
+  description="Social sustainability examples for buildings: community engagement, living wages, inclusive procurement, displacement avoidance, ethical sourcing, and more, organized by the four SEAM pillars."
+  path="/resources/social-sustainability-examples"
+  jsonLd={jsonLd}
+>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       1. HERO — H1, direct answer immediately after
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="relative min-h-[70vh] flex items-end bg-warm-900 overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="/images/hero-directory.jpg"
+        alt="People moving through a shared urban space"
+        class="h-full w-full object-cover object-center"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-warm-900/90 via-warm-900/60 to-warm-900/30"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-[1400px] px-6 lg:px-10 pb-16 lg:pb-24 pt-40 w-full">
+      <nav aria-label="Breadcrumb" class="hero-enter mb-6">
+        <ol class="flex items-center gap-2 text-[13px] text-warm-400">
+          <li><a href="/" class="hover:text-warm-300 transition-colors">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/resources/blog" class="hover:text-warm-300 transition-colors">Resources</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-warm-300">Social Sustainability Examples</li>
+        </ol>
+      </nav>
+
+      <h1 class="hero-title font-display text-[clamp(2.25rem,4.5vw,4rem)] leading-[1.06] tracking-[-0.04em] text-white max-w-4xl">
+        Social sustainability examples in the{' '}
+        <em class="italic font-normal text-seam-300">built environment</em>
+      </h1>
+
+      <p class="hero-subtitle mt-8 text-[clamp(1.1rem,1.5vw,1.35rem)] leading-relaxed text-warm-200 max-w-3xl">
+        Social sustainability examples in buildings are specific, documented practices that leave
+        the people a building touches measurably better off: occupants, workers, neighbors, and
+        the supply chain behind the materials. Common examples include engaging the people
+        a project affects throughout development, paying living wages across contractors and suppliers, avoiding
+        involuntary displacement, and screening materials for forced labor.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       2. WHAT COUNTS AS AN EXAMPLE
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="py-24 lg:py-32">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <p class="reveal-fade-up text-[13px] font-medium uppercase tracking-[0.15em] text-gold-600 mb-6">
+          What counts as an example
+        </p>
+        <h2 class="reveal-fade-up font-display text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.03em] text-warm-900 mb-8">
+          A practice you can document,{' '}
+          <em class="italic font-normal text-seam-600">not a value statement</em>
+        </h2>
+        <p class="reveal-fade-up text-[17px] leading-relaxed text-warm-600 mb-6">
+          If you want the definition first, start with{' '}
+          <a href="/social-sustainability" class="underline decoration-warm-300 hover:decoration-warm-600 transition-colors">what social sustainability means</a>{' '}
+          in the built environment. The short version: of the three pillars of sustainability,
+          environmental and economic arrived with measurement systems attached. The social pillar
+          of sustainability arrived as a value statement, which is why two buildings can make
+          identical social claims and mean entirely different things by them.
+        </p>
+        <p class="reveal-fade-up text-[17px] leading-relaxed text-warm-600">
+          A useful example is one you could hand to someone else to check. The
+          <a href="/resources/standard" class="underline decoration-warm-300 hover:decoration-warm-600 transition-colors">SEAM Standard</a>{' '}
+          organizes social sustainability into four pillars, then into 8 concepts, 21 objectives,
+          and 50+ individual activities, each with defined requirements, a scoring rubric, and
+          documentation rules. The examples below follow those four pillars. Each is a type of
+          practice described in the Standard, not a one-off story.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       3. EXAMPLES BY PILLAR
+       ═══════════════════════════════════════════════════════════════════ -->
+  {pillars.map((p, i) => (
+    <section class={`py-24 lg:py-32 ${i % 2 === 0 ? 'bg-warm-50' : ''}`}>
+      <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+        <div class="max-w-3xl mb-12">
+          <p class="reveal-fade-up text-[13px] font-medium uppercase tracking-[0.15em] text-gold-600 mb-6">
+            Pillar {i + 1} of 4
+          </p>
+          <h2 class="reveal-fade-up font-display text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.03em] text-warm-900 mb-6">
+            {p.title} examples
+          </h2>
+          <p class="reveal-fade-up text-[17px] leading-relaxed text-warm-600">
+            {p.summary}{' '}
+            <a href={p.href} class="underline decoration-warm-300 hover:decoration-warm-600 transition-colors">Read about {p.title}</a>.
+          </p>
+        </div>
+
+        <div class="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-6">
+          {p.examples.map((e) => (
+            <div class="reveal-child rounded-2xl border border-warm-200 bg-white p-8 lg:p-10">
+              <h3 class="font-display text-[22px] tracking-[-0.02em] text-warm-900 mb-3">{e.name}</h3>
+              <p class="text-[16px] leading-relaxed text-warm-600">{e.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       4. FROM EXAMPLE TO EVIDENCE
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="py-24 lg:py-32 bg-warm-900">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+      <div class="max-w-3xl mb-14">
+        <p class="reveal-fade-up text-[13px] font-medium uppercase tracking-[0.15em] text-gold-400 mb-6">
+          From example to evidence
+        </p>
+        <h2 class="reveal-fade-up font-display text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.03em] text-white mb-8">
+          A practice becomes a credential when{' '}
+          <em class="italic font-normal text-seam-300">somebody else checks it</em>
+        </h2>
+        <p class="reveal-fade-up text-[17px] leading-relaxed text-warm-400">
+          None of these examples needs to wait for a whole-building certification. SEAM lets
+          organizations verify a single practice, a themed body of work, or an entire project,
+          and every verified activity counts toward full certification later.
+        </p>
+      </div>
+
+      <div class="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/marks" class="reveal-child group block rounded-2xl border border-warm-700 p-8 transition-colors duration-300 hover:border-warm-500">
+          <h3 class="font-display text-[22px] tracking-[-0.02em] text-white group-hover:text-seam-300 transition-colors mb-3">SEAM Marks</h3>
+          <p class="text-[15px] leading-relaxed text-warm-400">Verify one activity, or three related ones. The smallest honest unit of proof.</p>
+        </a>
+        <a href="/seals" class="reveal-child group block rounded-2xl border border-warm-700 p-8 transition-colors duration-300 hover:border-warm-500">
+          <h3 class="font-display text-[22px] tracking-[-0.02em] text-white group-hover:text-seam-300 transition-colors mb-3">SEAM Seals</h3>
+          <p class="text-[15px] leading-relaxed text-warm-400">Verify sustained work in one theme, such as ethical procurement or community development.</p>
+        </a>
+        <a href="/certification" class="reveal-child group block rounded-2xl border border-warm-700 p-8 transition-colors duration-300 hover:border-warm-500">
+          <h3 class="font-display text-[22px] tracking-[-0.02em] text-white group-hover:text-seam-300 transition-colors mb-3">SEAM Certification</h3>
+          <p class="text-[15px] leading-relaxed text-warm-400">Whole-building certification across all four pillars, at four levels of achievement.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       5. FAQ
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="py-24 lg:py-32">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="reveal-fade-up font-display text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.03em] text-warm-900 text-center mb-16">
+          Frequently asked questions
+        </h2>
+
+        <div class="reveal-fade-up">
+          {faqs.map((faq) => (
+            <details class="border-b border-warm-200 group last:border-b-0">
+              <summary class="flex w-full items-center justify-between py-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-[17px] lg:text-[18px] font-medium text-warm-900 pr-8 group-open:text-seam-600 transition-colors">
+                  {faq.question}
+                </span>
+                <svg
+                  class="shrink-0 w-5 h-5 text-warm-400 transition-transform duration-300 group-open:rotate-45"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </summary>
+              <div class="pb-6">
+                <p class="text-[16px] leading-relaxed text-warm-600 max-w-2xl">{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       6. CTA
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="py-24 lg:py-32 bg-warm-900">
+    <div class="reveal-scale mx-auto max-w-[1400px] px-6 lg:px-10 text-center">
+      <h2 class="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.1] tracking-[-0.03em] text-white max-w-3xl mx-auto">
+        Turn examples into{' '}
+        <em class="italic font-normal text-seam-600">verified practice</em>
+      </h2>
+      <p class="mt-6 text-[17px] text-warm-400 max-w-xl mx-auto">
+        Certify a project against the SEAM Standard, or earn the credential to guide projects through it.
+      </p>
+      <div class="mt-12 flex flex-wrap justify-center gap-4">
+        <a
+          href="/certification"
+          class="inline-flex items-center rounded-full bg-white px-8 py-4 text-[16px] font-medium text-warm-900 hover:bg-warm-100 transition-colors duration-300"
+        >
+          Explore certification
+        </a>
+        <a
+          href="/ap-credential"
+          class="inline-flex items-center rounded-full border border-warm-600 px-8 py-4 text-[16px] font-medium text-warm-300 hover:border-warm-400 hover:text-white transition-colors duration-300"
+        >
+          Become a SEAM AP
+        </a>
+      </div>
+    </div>
+  </section>
+
+</SiteLayout>
